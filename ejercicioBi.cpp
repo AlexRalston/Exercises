@@ -54,11 +54,14 @@ for(int i=0;i<filas;i++){
 
         cout<<matriz[i][j]<<" | ";
     }
+    cout<<endl;
 }
 
 //Imprimimos la suma de cada fila
 
-for(){
+for(int i=0;i<filas;i++){
+
+    cout<<"La suma correspondiente a la fila "<<i+1<<" es: "<<sumaFilas[i]<<endl;
 
 
 
@@ -66,7 +69,9 @@ for(){
 
 //Imprimimos la suma de cada columna
 
-for(){
+for(int j=0;j<columnas;j++){
+
+    cout<<"La suma correspondiente a la columna "<<j+1<<" es: "<<sumaColumnas[j]<<endl;
 
 
 
