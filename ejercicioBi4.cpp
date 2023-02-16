@@ -38,7 +38,14 @@ cout<<endl;
 cout<<"Introduzca el numero de la fila que desea averiguar su maximo valor: ";cin>>fila;
 
 
-int maximo=
+int maximo=matriz[fila-1][0];
+
+for(int j=1;j<3;j++){
+    maximo=max(maximo,matriz[fila-1][j]);
+    
+    cout<<"maximo ="<<maximo<<endl;
+}
+
 
 cout<<endl;
 cout<<"El valor maximo de la fila "<<fila<<" es "<<maximo<<"."<<endl;
