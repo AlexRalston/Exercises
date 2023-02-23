@@ -1,21 +1,46 @@
+/*Leer un array de N*M elementos y que guarda 0 en las posiciones pares y 1 en las posiciones impares.Imprimir el array resultante.*/
+
 #include<iostream>
-/*Programacion Redes Implantacion  Media
-Alejandro  3.0    4.0           5.0   0.0
-Luis       7.0    3.0           2.0   0.0        
-Juan       2.0    5.0           4.0   0.0
-Antonio    6.0    2.0           8.0   0.0
-Carlos     2.0    1.0           9.0   0.0
-*/
-#include<vector>
-#include<string>
 
 using namespace std;
-
-
 
 int main(){
 
 
 
+
+    int filas,columnas;
+
+
+    cout<<"Introduzca el numero de filas:"<<endl;
+    cin>>filas;
+    cout<<"Introduzca el numero de columnas: "<<endl;
+    cin>>columnas;
+    int array[filas][columnas];
+    cout<<"La matriz resultante es de "<<filas<<" filas y "<<columnas<<":"<<endl;
+    for(int i=0;i<filas;i++){
+        for(int j=0;j<columnas;j++){
+            if(array[i][j] % 2 == 0){
+                array[i][j] = 0;
+
+            }
+            else{
+                array[i][j] = 1;
+            }
+
+
+        }
+
+
+    }
+    cout<<"Imprimiendo matriz: "<<endl;
+    for(int i=0;i<filas;i++){
+        for(int j=0;j<columnas;j++){
+
+            cout<<array[i][j]<<" | ";
+
+        }
+        cout<<endl;
+    }
 
 }
