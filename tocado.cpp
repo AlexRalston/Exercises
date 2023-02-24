@@ -60,7 +60,7 @@ int main(){
     tablero[2][1] = "portaviones";
     tablero[2][2] = "portaviones";
     tablero[2][3] = " ";
-    tablero[][] 
+    tablero[2][4] =  
 
 
     //Bucle para asignar la fragata, el acorazado y el portaviones
