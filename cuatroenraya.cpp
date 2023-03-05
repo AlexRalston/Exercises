@@ -193,20 +193,20 @@ void tablero (char m[4][4]){
 
 void Intro_Yo(char m[4][4]){
     int i, j, k;
-    int aux;
+    char aux;
 
     do{
         do{
             cout<<endl;
             cout<<endl;
-            printf("Coloca una ficha sobre el tablero: ");
+            printf("Coloca una ficha sobre el tablero(los caracteres especiales se corresponden en orden a las letras A-G): ");
             cout<<endl;
             cout<<endl;
 
             fflush(stdin);
             scanf("%c",&aux);
 
-        }while(aux < '1' || aux > '16');
+        }while(aux < '1' || aux > 'G');
     k=0;
     switch (aux){
         case '1':{
@@ -231,7 +231,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case'3':{
+        case '3':{
             i = 0;
             j = 2;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
