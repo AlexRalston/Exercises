@@ -14,10 +14,10 @@ using namespace std;
 
 void loop (char m[3][3]);
 void primera (char m[3][3]);
-
 void tablero (char m[3][3]);
 void Intro_Yo(char m[3][3]);
 void Intro_aleatorio(char m[3][3]);
+int ganador(char m[3][3]);
 
 
 
@@ -68,7 +68,7 @@ int main(){
 
 
 void loop(char m[3][3]){
-    int i;
+    int i,j;
 
     i=0;
 
@@ -87,9 +87,25 @@ void loop(char m[3][3]){
         else{
             Intro_aleatorio(m);
         }
+        j = ganador(m);
         i++;
 
-    }while (i<=9);
+    }while (i <= 9 && j == 2);
+
+    system("cls");
+    tablero(m);
+
+    if(j == 0){
+        cout<<"Enhorabuena!!Has ganado!!!";
+        cout<<endl;
+        cout<<endl;
+    }
+    else if(j == 1){
+        cout<<"Has perdido, otra vez sera.";
+    }
+    else{
+        cout<<"Has empatado, vuelvelo a intentar";
+    }
     
 
 }
@@ -352,6 +368,97 @@ void Intro_aleatorio(char m[3][3]){
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+int ganador(char m[3][3]){
+
+
+    if(m[0][0] == 'X' || m[0][0] == 'O'){
+        if(m[0][0] == m[0][1] && m[0][0] == m[0][2]){
+            if(m[0][0] == 'X'){
+                return 0;//He ganado
+            }
+            else{
+                return 1;//He perdido
+            }
+        }
+        if(m[0][0] == m[1][0] && m[0][0] == m[2][0]){
+
+            if(m[0][0] == 'X'){
+                return 0;
+            }
+
+            else{
+                return 1;
+            }
+        }
+        if(m[1][1] == 'X' || m[1][1] == 'O'){
+            if(m[1][1] == m[0][0] && m[1][1] == m[2][2]){
+                if(m[1][1] == 'X'){
+                    return 0;
+                }
+                else{
+                    return 1;
+                }
+            }
+        }
+            if(m[1][1] == m[2][0] && m[1][1] == m[0][2]){
+                if(m[1][1] == 'X'){
+                    return 0;
+                }
+                else{
+                    return 1;
+                }
+            }
+            if(m[1][1] == m[0][1] && m[1][1] == m[2][1]){
+
+                if(m[1][1] == 'X'){
+                    return 0;
+                }
+                else{
+                    return 1;
+                }
+            }
+    }
+
+    if(m[2][2]  == 'X' || m[2][2] == 'O'){
+
+        if(m[2][2] == m[2][0] && m[2][2] == m[2][1]){
+
+            if(m[2][2] == 'X'){
+                return 0;
+            }
+            else{
+                return 1;
+            }
+        }
+        if(m[2][2] == m[0][2] && m[2][2] == m[1][2]){
+            if(m[2][2] == 'X'){
+                return 0;
+            }
+            else{
+                return 1;
+            }
+
+        }
+    }
+return 2;
+}
+
+
+
+
+
    
 
 
