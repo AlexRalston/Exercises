@@ -6,18 +6,66 @@ using namespace std;
 
 
 
+
+
+
+
+
+
 void loop (char m[3][3]);
 void primera (char m[3][3]);
 
 void tablero (char m[3][3]);
 void Intro_Yo(char m[3][3]);
 void Intro_aleatorio(char m[3][3]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main(){
     char m[3][3];
     loop(m);//Llama a todas las funciones fundamentales y refresh
     system("PAUSE");
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void loop(char m[3][3]){
     int i;
@@ -46,6 +94,12 @@ void loop(char m[3][3]){
 
 }
 
+
+
+
+
+
+
 void primera (char m[3][3]){
 
     char aux;
@@ -60,6 +114,23 @@ void primera (char m[3][3]){
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void tablero (char m[3][3]){
 
     for(int i=0;i<3;i++){
@@ -76,6 +147,28 @@ void tablero (char m[3][3]){
         printf("\n-----------\n");}
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Intro_Yo(char m[3][3]){
     int i, j, k;
@@ -202,6 +295,42 @@ void Intro_Yo(char m[3][3]){
 
 m[i][j] = 'X';
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Intro_aleatorio(char m[3][3]){
     int i,j,k;
