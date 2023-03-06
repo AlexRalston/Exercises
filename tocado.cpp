@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
             i++;
             cout<<endl<<endl<<"Turno seguiente jugador:"<<endl;}
             for(int j=0;j<cant;j++){
+                
                         if(h[j+1]>seg){
                         if(seg>gan){
                         seg=gan;gan=h[j+1];}

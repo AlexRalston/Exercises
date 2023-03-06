@@ -5,13 +5,6 @@
 using namespace std;
 
 
-
-
-
-
-
-
-
 void loop (char m[4][4]);
 void primera (char m[4][4]);
 void tablero (char m[4][4]);
@@ -21,47 +14,12 @@ int ganador(char m[4][4]);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main(){
     char m[4][4];
     loop(m);//Llama a todas las funciones fundamentales y refresh
     system("PAUSE");
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -115,12 +73,6 @@ void loop(char m[4][4]){
 
 }
 
-
-
-
-
-
-
 void primera (char m[4][4]){
 
     char aux;
@@ -135,22 +87,6 @@ void primera (char m[4][4]){
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void tablero (char m[4][4]){
 
@@ -168,28 +104,6 @@ void tablero (char m[4][4]){
         printf("\n---------------\n");}
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void Intro_Yo(char m[4][4]){
     int i, j, k;
@@ -209,7 +123,7 @@ void Intro_Yo(char m[4][4]){
         }while(aux < '1' || aux > 'G');
     k=0;
     switch (aux){
-        case '1':{
+    case '1':{
             i = 0;
             j = 0;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -220,7 +134,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '2':{
+    case '2':{
             i = 0;
             j = 1;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -231,7 +145,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '3':{
+    case '3':{
             i = 0;
             j = 2;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -242,7 +156,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '4':{
+    case '4':{
             i = 0;
             j = 3;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -253,7 +167,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '5':{
+    case '5':{
             i = 1;
             j = 0;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -264,7 +178,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '6':{
+    case '6':{
             i = 1;
             j = 1;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -275,7 +189,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '7':{
+    case '7':{
             i = 1;
             j = 2;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -286,7 +200,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '8':{
+    case '8':{
             i = 1;
             j = 3;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -297,7 +211,7 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case '9':{
+    case '9':{
             i = 2;
             j = 0;
             if(m[i][j] == 'X' || m[i][j] == 'O'){
@@ -308,17 +222,17 @@ void Intro_Yo(char m[4][4]){
             }
             break;
         }
-        case 'A': {
+    case 'A':{
         i = 2;
         j = 1;
-    if (m[i][j] == 'X' || m[i][j] == 'O') {
-        k = 1;
-        cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
-        cout << endl;
+        if (m[i][j] == 'X' || m[i][j] == 'O') {
+            k = 1;
+            cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
+            cout << endl;
     }
     break;
 }
-    case 'B': {
+    case 'B':{
         i = 2;
         j = 2;
         if (m[i][j] == 'X' || m[i][j] == 'O') {
@@ -328,58 +242,56 @@ void Intro_Yo(char m[4][4]){
         }
             break;
 }
-    case 'C': {
-            i = 2;
-            j = 3;
+    case 'C':{
+        i = 2;
+        j = 3;
         if (m[i][j] == 'X' || m[i][j] == 'O') {
             k = 1;
             cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
             cout << endl;
     }
-    break;
+            break;
 }
-case 'D': {
-    i = 3;
-    j = 0;
-    if (m[i][j] == 'X' || m[i][j] == 'O') {
-        k = 1;
-        cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
-        cout << endl;
+    case 'D':{
+        i = 3;
+        j = 0;
+        if (m[i][j] == 'X' || m[i][j] == 'O') {
+            k = 1;
+            cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
+            cout << endl;
     }
-    break;
+            break;
 }
-case 'E': {
-    i = 3;
-    j = 1;
-    if (m[i][j] == 'X' || m[i][j] == 'O') {
-        k = 1;
-        cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
-        cout << endl;
+    case 'E':{
+        i = 3;
+        j = 1;
+        if (m[i][j] == 'X' || m[i][j] == 'O') {
+            k = 1;
+            cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
+            cout << endl;
     }
-    break;
+            break;
 }
-case 'F': {
-    i = 3;
-    j = 2;
-    if (m[i][j] == 'X' || m[i][j] == 'O') {
-        k = 1;
-        cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
-        cout << endl;
+    case 'F':{
+        i = 3;
+        j = 2;
+        if (m[i][j] == 'X' || m[i][j] == 'O') {
+            k = 1;
+            cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
+            cout << endl;
     }
-    break;
+            break;
 }
-case 'G': {
-    i = 3;
-    j = 3;
-    if (m[i][j] == 'X' || m[i][j] == 'O') {
-        k = 1;
-        cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
-        cout << endl;
+    case 'G':{
+        i = 3;
+        j = 3;
+        if (m[i][j] == 'X' || m[i][j] == 'O') {
+            k = 1;
+            cout << "La casilla esta ocupada, intentalo con otra que este libre..." << endl;
+            cout << endl;
     }
-    break;
+            break;
 }
-
-        
     }
 
 }while(k==1);
