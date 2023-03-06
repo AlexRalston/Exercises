@@ -36,7 +36,6 @@ for(int i=0;i<filas;i++){
         else{
             producto *= matriz[i][j];
         }
-
     }
 }
 
