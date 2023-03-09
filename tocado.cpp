@@ -1,5 +1,7 @@
 
 #include <iostream>
+#include<stdlib.h>
+#include<ctime>
 using namespace std;
 
 void mat_en_cero(int mat[][10]);
@@ -8,39 +10,39 @@ void parte1(int mat[][10]);
 void parte2(int mat[][10]);
 void parte3(int mat[][10]);
 void parte4(int mat[][10]);
-void batalla(int tir,int &j,int h[],int a[]);
+void batalla(int tiro,int &j,int h[],int a[]);
 
 int main(int argc, char *argv[]) {
-            int cant;
-            char jug[10][10];
+            int cantidad;
+            char jugador[10][10];
             cout<<"Introduzca cantidad de jugadores: ";
-            cin>>cant;
-            for(int i=0;i<cant;i++){
+            cin>>cantidad;
+            for(int i=0;i<cantidad;i++){
                         cout<<"Introduzca el nombre del o los jugadores: "<<i+1<<" : ";
-                        cin>>jug[i];
+                        cin>>jugador[i];
                         cout<<endl;
             }
-            int tir;
+            int tiro;
            
             cout<<endl<<"Cuantos tiros quieres?"<<endl;
-            cin>>tir;
+            cin>>tiro;
             int h[4],a[4];
-            int i=1,gan=0,seg=0;
-            for(int f=0;f<cant;f++){
-            batalla(tir,i,h,a);
+            int i=1,ganador=0,segundo=0;
+            for(int f=0;f<cantidad;f++){
+            batalla(tiro,i,h,a);
             i++;
             cout<<endl<<endl<<"Turno seguiente jugador:"<<endl;}
-            for(int j=0;j<cant;j++){
+            for(int j=0;j<cantidad;j++){
                 
-                        if(h[j+1]>seg){
-                        if(seg>gan){
-                        seg=gan;gan=h[j+1];}
+                        if(h[j+1]>segundo){
+                        if(segundo>ganador){
+                        segundo=ganador;ganador=h[j+1];}
                         else
-                                   seg=h[j+1];
+                                   segundo=h[j+1];
                         }
                        
             }
-            cout<<"Ganador: "<<jug[gan]<<". Barcos Hundidos: "<<h[gan]<<endl;
+            cout<<"Ganador: "<<jugador[ganador]<<". Barcos Hundidos: "<<h[ganador]<<endl;
            
                        
            
@@ -70,49 +72,137 @@ void mat_en_cero(int mat [][10]){
                                    mat[i][j]=0;
            
 }
+
 void parte1(int mat[][10]){
-int fil,col;
-cout<<"Barco de 1 parte"<<endl<<"Introduzca fila:"<<endl;
-cin>>fil;
-cout<<"Introduzca columna:"<<endl;
-cin>>col;
-mat[fil-1][col-1]=1;
+    
+    int fil, col;
+    bool ocupado = true;
+    srand(time(0)); //SEMILLA
+    
+    while (ocupado) {
+        fil = rand() % 10; 
+        col = rand() % 10; 
+        if (mat[fil][col] == 0) { // verifica si la celda está vacía
+            ocupado = false;
+            mat[fil][col] = 1; // agrega la parte del barco en la celda vacía
+        }
+    }
 }
+
+
 void parte2(int mat[][10]){
-            int fil,col;
-            cout<<"Barco de 2 partes"<<endl;
-            for(int i=0;i<2;i++){
-            cout<<"Introduzca fila:"<<endl;
-            cin>>fil;
-            cout<<"Introduzca columna:"<<endl;
-            cin>>col;
-            mat[fil-1][col-1]=2;
+    
+    int fil, col;
+    bool ocupado = true;
+    srand(time(0)); // SEMILLA
+    
+    while (ocupado) {
+        fil = rand() % 10; 
+        col = rand() % 10; 
+        int orientacion = rand() % 3; 
+        if (orientacion == 0) { // orientación horizontal
+            if (col < 9 && mat[fil][col] == 0 && mat[fil][col+1] == 0) { // verifica si las celdas están vacías
+                ocupado = false;
+                mat[fil][col] = 2; 
+                mat[fil][col+1] = 2; 
             }
-            
-           
+        } else if (orientacion == 1) { // orientación vertical
+            if (fil < 9 && mat[fil][col] == 0 && mat[fil+1][col] == 0) { // verifica si las celdas están vacías
+                ocupado = false;
+                mat[fil][col] = 2; 
+                mat[fil+1][col] = 2; 
+            }
+        } else { // orientación diagonal
+            if (fil < 9 && col < 9 && mat[fil][col] == 0 && mat[fil+1][col+1] == 0) { // verifica si las celdas están vacías
+                ocupado = false;
+                mat[fil][col] = 2; 
+                mat[fil+1][col+1] = 2; 
+            }
+        }
+    }
 }
+
 void parte3(int mat[][10]){
-            int fil,col;
-            cout<<"Barco de 3 partes"<<endl;
-            for(int i=0;i<3;i++){
-                        cout<<"Introduzca fila:"<<endl;
-                        cin>>fil;
-                        cout<<"Introduzca columna:"<<endl;
-                        cin>>col;
-                        mat[fil-1][col-1]=3;
+    
+    int fil, col;
+    bool ocupado = true;
+    srand(time(0)); // SEMILLA
+    
+    while (ocupado) {
+        fil = rand() % 10; 
+        col = rand() % 10; 
+        int orientacion = rand() % 3; 
+        if (orientacion == 0) { // orientación horizontal
+            if (col < 8 && mat[fil][col] == 0 && mat[fil][col+1] == 0 && mat[fil][col+2] == 0) { // verifica si las celdas están vacías
+                ocupado = false;
+                mat[fil][col] = 3; 
+                mat[fil][col+1] = 3; 
+                mat[fil][col+2] = 3; 
             }
+        } else if (orientacion == 1) { // orientación vertical
+            if (fil < 8 && mat[fil][col] == 0 && mat[fil+1][col] == 0 && mat[fil+2][col] == 0) { // verifica si las celdas están vacías
+                ocupado = false;
+                mat[fil][col] = 3; 
+                mat[fil+1][col] = 3;
+                mat[fil+2][col] = 3; 
+            }
+        } else { // orientación diagonal
+            if (fil < 8 && col < 8 && mat[fil][col] == 0 && mat[fil+1][col+1] == 0 && mat[fil+2][col+2] == 0) { // verifica si las celdas están vacías
+                ocupado = false;
+                mat[fil][col] = 3; 
+                mat[fil+1][col+1] = 3; 
+                mat[fil+2][col+2] = 3; 
+            }
+        }
+    }
 }
 void parte4(int mat[][10]){
-            int fil,col;
-            cout<<"Barco de 4 partes"<<endl;
-            for(int i=0;i<4;i++){
-                        cout<<"Introduzca fila:"<<endl;
-                        cin>>fil;
-                        cout<<"Introduzca columna:"<<endl;
-                        cin>>col;
-                        mat[fil-1][col-1]=4;
-            }
+    int fila,columna;
+
+
+    // Generar aleatoriamente una posición inicial
+    fila = rand() % 10;
+    columna = rand() % 10;
+
+    // Generar aleatoriamente la dirección del barco
+    int dir = rand() % 3; // 0: horizontal, 1: vertical, 2: diagonal
+    int f_inc = 0, c_inc = 0;
+    if (dir == 0) { // horizontal
+        c_inc = 1;
+    } else if (dir == 1) { // vertical
+        f_inc = 1;
+    } else { // diagonal
+        f_inc = 1;
+        c_inc = 1;
+    }
+
+    // Verificar si es posible colocar el barco en la dirección generada
+    bool puede_colocar = true;
+    for (int i = 0; i < 4; i++) {
+        int f = fila + i * f_inc;
+        int c = columna + i * c_inc;
+        if (f < 0 || f >= 10 || c < 0 || c >= 10 || mat[f][c] != 0) {
+            puede_colocar = false;
+            break;
+        }
+    }
+
+    // Si es posible, colocar el barco en la dirección generada
+    if (puede_colocar) {
+        for (int i = 0; i < 4; i++) {
+            int f = fila + i * f_inc;
+            int c = columna + i * c_inc;
+            mat[f][c] = 4;
+        }
+    } else { // Si no es posible, intentarlo de nuevo
+        parte4(mat);
+    }
 }
+
+
+
+
+
 void batalla(int tir,int &j,int h[],int a[]){
             h[j]=0;
             a[j]=0;
