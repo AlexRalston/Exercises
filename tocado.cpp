@@ -73,7 +73,7 @@ void mat_en_cero(int mat [][10]){
            
 }
 
-void parte1(int mat[][10]){
+void submarino(int mat[][10]){
     
     int fil, col;
     bool ocupado = true;
@@ -90,7 +90,7 @@ void parte1(int mat[][10]){
 }
 
 
-void parte2(int mat[][10]){
+void fragata(int mat[][10]){
     
     int fil, col;
     bool ocupado = true;
@@ -122,7 +122,7 @@ void parte2(int mat[][10]){
     }
 }
 
-void parte3(int mat[][10]){
+void acorazado(int mat[][10]){
     
     int fil, col;
     bool ocupado = true;
@@ -156,7 +156,7 @@ void parte3(int mat[][10]){
         }
     }
 }
-void parte4(int mat[][10]){
+void portaviones(int mat[][10]){
     int fila,columna;
 
 
@@ -195,7 +195,7 @@ void parte4(int mat[][10]){
             mat[f][c] = 4;
         }
     } else { // Si no es posible, intentarlo de nuevo
-        parte4(mat);
+        portaviones(mat);
     }
 }
 
@@ -210,10 +210,10 @@ void batalla(int tir,int &j,int h[],int a[]){
             int mat[10][10];
             mat_en_cero(mat);
            
-            parte1(mat);
-            parte2(mat);
-            parte3(mat);
-            parte4(mat);
+            submarino(mat);
+            fragata(mat);
+            acorazado(mat);
+            portaviones(mat);
 
             for(int i=0;i<10;i++){
                         for(int j=0;j<10;j++){
