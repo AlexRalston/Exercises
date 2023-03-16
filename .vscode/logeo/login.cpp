@@ -57,16 +57,16 @@ int main(){
             cout<<"¿Que desea jugar? (Cuatroenraya/Hundir la flota): ";
             
             cin>>juego;
-            }while(juego!="Cuatroenraya" || juego!="Hundir la flota");
+            }while(juego!="Cuatroenraya" && juego!="Hundir la flota");
 
             if(juego  == "Cuatroenraya") {
 
-                system("cuatroenraya.cpp"); //accede al prompt del sistema y ejecuta cuatroenraya
+                system("cuatroenraya.exe"); //accede al prompt del sistema y ejecuta cuatroenraya
 
             }
             else if(juego == "Hundir la flota"){
 
-                system("tocado.cpp"); //accede al prompt del sistema y ejecuta hundir la flota
+                system("tocado.exe"); //accede al prompt del sistema y ejecuta hundir la flota
 
             }
             else{
@@ -82,21 +82,39 @@ int main(){
                 cout<<"¿Desea registrarse en el sistema?(si/no):";
                 cin>>respuesta;
                 if(respuesta == "si"){
-                    cout<<"Ingrese el nombre del usuario que desea registrar:  ";
-                    cin>>usuario;
-                    cout<<"Ingrese la contraseña que desea para su registro:";
-                    cin>>contrasenia;
-                    ofstream archivo_salida("tablaLog.txt",ios_base::app);
-                    if(archivo_salida.is_open()){
-                        archivo_salida<<usuario<<"-"<<contrasenia<<endl;
-                        cout<<"Registro exitoso"<<endl;
-                        archivo_salida.close();
-                    }
-                    else{
-                        cout<<"Error al abrir el archivo"<<endl;
-                        return 1;
-                    }
-                }
+    cout<<"Ingrese el nombre del usuario que desea registrar:  ";
+    cin>>usuario;
+    cout<<"Ingrese la contraseña que desea para su registro:";
+    cin>>contrasenia;
+
+    // Verificar si el usuario ya existe
+    ifstream archivo_lectura("tablaLog.txt");
+    string linea;
+    while (getline(archivo_lectura, linea)) {
+        size_t pos = linea.find('-');
+        string usuario_archivo = linea.substr(0,pos);
+        if (usuario == usuario_archivo) {
+            cout<<endl;
+            cout<<endl;
+            cout << "Usuario existente, porfavor registrase con otro nombre de usuario y/o contraseña." << endl;
+            archivo_lectura.close();
+            return 1;
+        }
+    }
+    archivo_lectura.close();
+
+    // Registrar el nuevo usuario
+    ofstream archivo_salida("tablaLog.txt",ios_base::app);
+    if(archivo_salida.is_open()){
+        archivo_salida<<usuario<<"-"<<contrasenia<<endl;
+        cout<<"Registro exitoso"<<endl;
+        archivo_salida.close();
+    }
+    else{
+        cout<<"Error al abrir el archivo"<<endl;
+        return 1;
+    }
+}
             }
             else{
                 cout<<"Acceso denegado. No quedan intentos restantes."<<endl;
