@@ -257,7 +257,7 @@ cout<<endl;
                                                           
                                                }
                                    if(mat[fil-1][col-1]==3){
-                                                           cout<<"Has averiado 55elacorazado."<<endl;fal[fil-1][col-1]=3;
+                                                           cout<<"Has averiado el acorazado."<<endl;fal[fil-1][col-1]=3;
                                                            mat[fil-1][col-1]=0;
                                                            for(int i=0;i<10;i++)
                                                                        for(int j=0;j<10;j++)
