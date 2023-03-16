@@ -216,10 +216,17 @@ void batalla(int tir,int &j,int h[],int a[]){
             portaviones(mat);
 
             for(int i=0;i<10;i++){
+
                         for(int j=0;j<10;j++){
-                                   cout<<mat[i][j];}
-                        cout<<endl;
+                                    if(mat[i][j] > 0){
+                                        cout<<"0"<<" | ";
+                                    }
+                                    else{
+                                   cout<<mat[i][j]<<" | ";}
+                        
 }
+cout<<endl;
+            }
            
             int k=5;
             int fal[10][10],col,c1=0,fil;
@@ -231,12 +238,14 @@ void batalla(int tir,int &j,int h[],int a[]){
                         cout<<"Introduzca fila: "<<endl;
                         cin>>fil;
                         if(mat[fil-1][col-1]==0){
-                                   cout<<endl<<"Aguaaaa"<<endl<<endl;
+                                   cout<<endl<<"Agua. Recargando..."<<endl<<endl;
                         }else{
                                    if(mat[fil-1][col-1]==1){
-                                               cout<<"HUNDISTE EL BARCO DE 1 PARTE!!"<<endl;fal[fil-1][col-1]=1;h[j]++;}
+                                                cout<<endl;
+                                                cout<<endl;
+                                               cout<<"HUNDISTE EL SUBMARINO!!"<<endl;fal[fil-1][col-1]=1;h[j]++;}
                                    if(mat[fil-1][col-1]==2){
-                                                           cout<<"Has averiado el navio de 2 partes."<<endl;fal[fil-1][col-1]=2;
+                                                           cout<<"Has averiado la fragata."<<endl;fal[fil-1][col-1]=2;
                                                            mat[fil-1][col-1]=0;
                                                            for(int i=0;i<10;i++)
                                                                        for(int j=0;j<10;j++)
@@ -244,35 +253,35 @@ void batalla(int tir,int &j,int h[],int a[]){
                                                                                               cout<<"te falta una/s parte/s."<<endl;
                                                                                               a[j]++;k=0;}
                                                           
-                                                           if(k==5){cout<<"BARCO HUNDIDO!!!"<<endl;h[j]++;}
+                                                           if(k==5){cout<<"FRAGATA HUNDIDA!!!"<<endl;h[j]++;}
                                                           
                                                }
                                    if(mat[fil-1][col-1]==3){
-                                                           cout<<"Has averiado el navio de 3 partes."<<endl;fal[fil-1][col-1]=3;
+                                                           cout<<"Has averiado 55elacorazado."<<endl;fal[fil-1][col-1]=3;
                                                            mat[fil-1][col-1]=0;
                                                            for(int i=0;i<10;i++)
                                                                        for(int j=0;j<10;j++)
                                                                                   if(mat[i][j]==3){
                                                                                               cout<<"te falta una/s parte/s."<<endl;a[j]++;k=0;}
-                                                           if(k==5){cout<<"BARCO HUNDIDO!!!"<<endl;h[j]++;}
+                                                           if(k==5){cout<<"ACORAZADO HUNDIDO!!!"<<endl;h[j]++;}
                                                           
                                                           
                                                           
                                                }
                                    if(mat[fil-1][col-1]==4){
-                                                           cout<<"Has averido el navio de 4 partes."<<endl;fal[fil-1][col-1]=4;
+                                                           cout<<"Has averiado el portaviones."<<endl;fal[fil-1][col-1]=4;
                                                            mat[fil-1][col-1]=0;
                                                            for(int i=0;i<10;i++)
                                                                        for(int j=0;j<10;j++)
                                                                                   if(mat[i][j]==4){
                                                                                               cout<<"te falta una/s parte/s."<<endl;a[j]++;k=0;}
-                                                           if(k==5){cout<<"BARCO HUNDIDO!!!"<<endl;h[j]++;}             
+                                                           if(k==5){cout<<"PORTAVIONES HUNDIDO BRAVO!!!"<<endl;h[j]++;}             
                                                }
                                               
                         }
                         for(int i=0;i<10;i++){
                                    for(int j=0;j<10;j++){
-                                               cout<<fal[i][j];}
+                                               cout<<fal[i][j]<<" | ";}
                                    cout<<endl;
                         }
                         cout<<endl<<endl<<endl<<endl;
