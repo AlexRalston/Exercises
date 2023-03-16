@@ -7,13 +7,11 @@ using namespace std;
 
 int main(){
 
-
     string usuario, contrasenia;
+    int intentos = 3;
+    bool acceso_concedido = false;
 
-    ifstream archivo("C:/Users/ILCAPO/linux/.vscode/logeo/tablaLog.txt");
-
-    archivo.open("tablaLog.txt");
-
+    ifstream archivo("tablaLog.txt");
 
     if(!archivo.is_open()){
         cout<<"El archivo no esta abierto. Abriendo archivo..."<<endl;
@@ -25,73 +23,86 @@ int main(){
 
     }
 
-    cout<<"Ingrese su usuario: ";
+    while (intentos > 0 && !acceso_concedido){
+        cout<<"Ingrese su usuario: ";
+        cin>>usuario;
+        cout<<"Ingrese su contrasenia: ";
+        cin>>contrasenia;
 
-    cin>>usuario;
+        string linea;
+        bool encontrado = false;
+        archivo.clear();
+        archivo.seekg(0, ios::beg);
 
-    cout<<"Ingrese su contrasenia: ";
+        while (getline(archivo,linea)){
 
-    cin>>contrasenia;
+            size_t pos = linea.find('-');
 
-    string linea;
+            string usuario_archivo = linea.substr(0,pos);//Desde posicion 0 de la cadena hasta el delimitador '-'
+            string contraseña_archivo = linea.substr(pos+1);//El resto, es decir, la contraseña
 
-    bool encontrado = false;
-
-    while (getline(archivo,linea)){
-
-        size_t pos = linea.find('-');
-
-        string usuario_archivo = linea.substr(0,pos);//Desde posicion 0 de la cadena hasta el delimitador '-'
-        string contraseña_archivo = linea.substr(pos+1);//El resto, es decir, la contraseña
-
-        if(usuario == usuario_archivo && contrasenia == contraseña_archivo){
-            encontrado = true;
-            break;
-
+            if(usuario == usuario_archivo && contrasenia == contraseña_archivo){
+                encontrado = true;
+                break;
+            }
 
         }
 
-    }
+        if(encontrado){
+            acceso_concedido = true;
+            cout<<"Acceso concedido."<<endl;
+            string juego;
+            do{
+            
+            cout<<"¿Que desea jugar? (Cuatroenraya/Hundir la flota): ";
+            
+            cin>>juego;
+            }while(juego!="Cuatroenraya" || juego!="Hundir la flota");
 
-    if(encontrado){
+            if(juego  == "Cuatroenraya") {
 
-        cout<<"Acceso concedido."<<endl;
-        cout<<endl;
-        cout<<endl;
-    }
-
-    else{
-
-        cout<<"Acceso denegado"<<endl;
-        string respuesta;
-
-        cout<<"¿Desea registrarse en el sistema?(si/no):";
-        cin>>respuesta;
-        if(respuesta == "si"){
-            cout<<"Ingrese el nombre del usuario que desea registrar:  ";
-            cin>>usuario;
-            cout<<""
-            ofstream archivo_salida("tablaLog.txt",ios::app);
-
-            if(!archivo_salida.is_open()){
-
-                cout<<"Error al abrir el archivo"<<endl;
-
-                return 1;
+                system("cuatroenraya.cpp"); //accede al prompt del sistema y ejecuta cuatroenraya
 
             }
+            else if(juego == "Hundir la flota"){
 
-            archivo_salida<<usuario<<"-"<<contrasenia<<endl;
-            cout<<"Registro exitoso"<<endl;
-            
-            archivo_salida.close();
-        } 
+                system("tocado.cpp"); //accede al prompt del sistema y ejecuta hundir la flota
+
+            }
+            else{
+
+                cout<<"Juego no reconocido"<<endl;
+            }
+        }
+        else{
+            intentos--;
+            if (intentos > 0){
+                cout<<"Acceso denegado. Intentos restantes: "<<intentos<<endl;
+                string respuesta;
+                cout<<"¿Desea registrarse en el sistema?(si/no):";
+                cin>>respuesta;
+                if(respuesta == "si"){
+                    cout<<"Ingrese el nombre del usuario que desea registrar:  ";
+                    cin>>usuario;
+                    cout<<"Ingrese la contraseña que desea para su registro:";
+                    cin>>contrasenia;
+                    ofstream archivo_salida("tablaLog.txt",ios_base::app);
+                    if(archivo_salida.is_open()){
+                        archivo_salida<<usuario<<"-"<<contrasenia<<endl;
+                        cout<<"Registro exitoso"<<endl;
+                        archivo_salida.close();
+                    }
+                    else{
+                        cout<<"Error al abrir el archivo"<<endl;
+                        return 1;
+                    }
+                }
+            }
+            else{
+                cout<<"Acceso denegado. No quedan intentos restantes."<<endl;
+            }
+        }
     }
 
     return 0;
-    
 }
-    
-
-
-
