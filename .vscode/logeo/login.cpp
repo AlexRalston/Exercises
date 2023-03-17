@@ -8,7 +8,7 @@ using namespace std;
 int main(){
 
     string usuario, contrasenia;
-    int intentos = 4;
+    int intentos = 3;
     bool acceso_concedido = false;
 
     ifstream archivo("tablaLog.txt");
