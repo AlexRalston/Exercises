@@ -6,78 +6,69 @@
 #include <unistd.h>
 #include <fstream>
 #include <cstring>
-
+#include <dirent.h> // Agregar esta línea para usar DIR y dirent
 
 using namespace std;
 
-
-
-    int main(){
-
-
+int main() {
     int opcion;
     //CIN DE LA OPCION POR EL USUARIO
-    while(true){ //Cambiar por switch
+    while (true) {
+        cout << "Selecciona una opcion: " << endl;
+        cout << "1. DHCP" << endl;
+        cout << "2. Backup" << endl;
+        cout << "3. Serverconfig" << endl;
+        cout << "4. FTP" << endl;
+        cout << "5. SSH" << endl;
+        cout << "6. Actualizar SO." << endl;
+        // Agregar una pausa para evitar que el programa muestre el menú demasiado rápido
+        usleep(100000);
+        cin >> opcion;
 
-        cout<<"Selecciona una opcion: "<<endl;
+        switch (opcion) { // Agregar el switch
+            case 1: {
+                // Definir la configuración del servidor DHCP
+                string iface_name;
+                string subnet;
+                string dhcp_range_start;
+                string dhcp_range_end;
+                string dhcp_lease_time;
 
-        cout<<"1. DHCP"<<endl;
-        cout<<"2. Backup"<<endl;
-        cout<<"3.Serverconfig"<<endl;
-        cout<<"4. FTP"<<endl;
-        cout<<"5. SSH"<<endl;
-        cout<<"6.Actualizar SO."<<endl;
+                // Pedir la información de configuración al usuario
+                cout << "Nombre de la interfaz: ";
+                cin >> iface_name;
+                cout << "Dirección de la subred (en formato CIDR): ";
+                cin >> subnet;
+                cout << "Dirección de inicio del rango DHCP: ";
+                cin >> dhcp_range_start;
+                cout << "Dirección de fin del rango DHCP: ";
+                cin >> dhcp_range_end;
+                cout << "Tiempo de arrendamiento de IP (en segundos): ";
+                cin >> dhcp_lease_time;
 
-    }
+                // Crear el archivo de configuración del servidor DHCP
+                string conf_file_name = "/etc/dhcp/dhcpd.conf";
+                ofstream conf_file(conf_file_name);
+                conf_file << "subnet " << subnet << " {\n";
+                conf_file << "    range " << dhcp_range_start << " " << dhcp_range_end << ";\n";
+                conf_file << "    option routers " << iface_name << ";\n";
+                conf_file << "    option subnet-mask " << subnet << ";\n";
+                conf_file << "    default-lease-time " << dhcp_lease_time << ";\n";
+                conf_file << "    max-lease-time " << dhcp_lease_time << ";\n";
+                conf_file << "}\n";
+                conf_file.close();
 
+                // Reiniciar el servicio del servidor DHCP
+                system("systemctl restart isc-dhcp-server");
 
+                cout << "Configuración completada. El servidor DHCP está en ejecución." << endl;
 
-    case 1: {
-
-        // Definir la configuración del servidor DHCP
-        string iface_name;
-        string subnet;
-        string dhcp_range_start;
-        string dhcp_range_end;
-        string dhcp_lease_time;
-
-        // Pedir la información de configuración al usuario
-        cout << "Nombre de la interfaz: ";
-        cin >> iface_name;
-        cout << "Dirección de la subred (en formato CIDR): ";
-        cin >> subnet;
-        cout << "Dirección de inicio del rango DHCP: ";
-        cin >> dhcp_range_start;
-        cout << "Dirección de fin del rango DHCP: ";
-        cin >> dhcp_range_end;
-        cout << "Tiempo de arrendamiento de IP (en segundos): ";
-        cin >> dhcp_lease_time;
-
-        // Crear el archivo de configuración del servidor DHCP
-        string conf_file_name = "/etc/dhcp/dhcpd.conf";
-        ofstream conf_file(conf_file_name);
-        conf_file << "subnet " << subnet << " {\n";
-        conf_file << "    range " << dhcp_range_start << " " << dhcp_range_end << ";\n";
-        conf_file << "    option routers " << iface_name << ";\n";
-        conf_file << "    option subnet-mask " << subnet << ";\n";
-        conf_file << "    default-lease-time " << dhcp_lease_time << ";\n";
-        conf_file << "    max-lease-time " << dhcp_lease_time << ";\n";
-        conf_file << "}\n";
-        conf_file.close();
-
-        // Reiniciar el servicio del servidor DHCP
-        system("systemctl restart isc-dhcp-server");
-
-        cout << "Configuración completada. El servidor DHCP está en ejecución." << endl;
-
-        
-
-    }
-    case 2: {
-
-    // Crear una copia de seguridad del archivo de configuración del servidor DHCP
-    string conf_file_name = "/etc/dhcp/dhcpd.conf";
-    string backup_file_name = "/etc/dhcp/dhcpd.conf.bak";
+                break;
+            }
+            case 2: {
+                // Crear una copia de seguridad del archivo de configuración del servidor DHCP
+                string conf_file_name = "/etc/dhcp/dhcpd.conf";
+                string backup_file_name = "/etc/dhcp/dhcpd.conf.bak";
     ifstream conf_file(conf_file_name);
     ofstream backup_file(backup_file_name);
     backup_file << conf_file.rdbuf();
@@ -258,72 +249,7 @@ using namespace std;
 
  
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return 0;
-
-
-
-
-    
-    
-
-
-
+    }
 
 
 }
