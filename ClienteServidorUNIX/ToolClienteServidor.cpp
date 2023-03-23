@@ -211,6 +211,7 @@ int main() {
     ssh_userauth_password(session, NULL, password.c_str());
 
     // Ejecutar un comando en la terminal como superusuario
+    ssh_channel channel;
     channel = ssh_channel_new(session);
     ssh_channel_open_session(channel);
     ssh_channel_request_pty(channel);
