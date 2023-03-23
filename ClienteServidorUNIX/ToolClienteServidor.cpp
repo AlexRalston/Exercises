@@ -70,7 +70,7 @@ int main() {
             case 2: {
                 // Crear una copia de seguridad del archivo de configuración del servidor DHCP
                 string conf_file_name = "/etc/dhcp/dhcpd.conf";
-                string backup_file_name = "/etc/dhcp/dhcpd.conf.bak";
+                string backup_file_name = "/etc/dhcp/backups/dhcpd.conf.bak";
     ifstream conf_file(conf_file_name);
     ofstream backup_file(backup_file_name);
     backup_file << conf_file.rdbuf();
