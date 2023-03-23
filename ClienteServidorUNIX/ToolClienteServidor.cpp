@@ -7,6 +7,8 @@
 #include <fstream>
 #include <cstring>
 #include <dirent.h> // Agregar esta línea para usar DIR y dirent
+#include<vector>
+#include<libssh/libssh.h>
 
 using namespace std;
 
@@ -202,18 +204,18 @@ int main() {
     ssh_session session = ssh_new();
     ssh_options_set(session, SSH_OPTIONS_HOST, host.c_str());
     ssh_options_set(session, SSH_OPTIONS_USER, user.c_str());
-    ssh_options_set(session, SSH_OPTIONS_PASSWORD, password.c_str());
+    ssh_options_set(session, SSH_OPTIONS_PASSWORD_AUTH, password.c_str());
     ssh_connect(session);
 
     // Iniciar sesión en el servidor SSH
     ssh_userauth_password(session, NULL, password.c_str());
 
     // Ejecutar un comando en la terminal como superusuario
-    ssh_channel channel = ssh_channel_new(session);
+    channel = ssh_channel_new(session);
     ssh_channel_open_session(channel);
     ssh_channel_request_pty(channel);
     ssh_channel_change_pty_size(channel, 80, 24);
-    ssh_channel_exec(channel, "sudo su");
+    ssh_channel_request_exec(channel, "sudo su");
     char buffer[256];
     int nbytes;
     nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
