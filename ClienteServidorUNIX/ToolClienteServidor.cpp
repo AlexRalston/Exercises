@@ -16,7 +16,7 @@ int main() {
     int opcion;
     //CIN DE LA OPCION POR EL USUARIO
     while (true) {
-        cout << "Selecciona una opcion: " << endl;
+        cout << "Selecciona una opcion e introduzca el numero correspondiente: " << endl;
         cout << "1. DHCP" << endl;
         cout << "2. Backup" << endl;
         cout << "3. Serverconfig" << endl;
@@ -25,6 +25,7 @@ int main() {
         cout << "6. Actualizar SO." << endl;
         // Agregar una pausa para evitar que el programa muestre el menú demasiado rápido
         usleep(100000);
+        cout<<"Introduzca la opcion que desea:";
         cin >> opcion;
 
         switch (opcion) { // Agregar el switch
@@ -71,11 +72,11 @@ int main() {
                 // Crear una copia de seguridad del archivo de configuración del servidor DHCP
                 string conf_file_name = "/etc/dhcp/dhcpd.conf";
                 string backup_file_name = "/etc/dhcp/backups/dhcpd.conf.bak";
-    ifstream conf_file(conf_file_name);
-    ofstream backup_file(backup_file_name);
-    backup_file << conf_file.rdbuf();
-    conf_file.close();
-    backup_file.close();
+                ifstream conf_file(conf_file_name);
+                ofstream backup_file(backup_file_name);
+                backup_file << conf_file.rdbuf();
+                conf_file.close();
+                backup_file.close();
 
     cout << "Copia de seguridad creada exitosamente." << endl;
 
@@ -134,59 +135,25 @@ int main() {
     }
 
     case 4:{
+ // Instalar servidor FTP y herramientas
+    system("sudo apt-get update");
+    system("sudo apt-get install vsftpd ftp");
 
-         // Crear el archivo a enviar
+    // Crear el archivo a enviar
     string file_name = "archivo.txt";
     ofstream file(file_name);
     file << "Este es un archivo para poder probar el funcionamiento del protocolo FTP.";
     file.close();
 
-    // Crear el socket
-    int client_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (client_socket < 0) {
-        cerr << "Error al crear el socket." << endl;
-        return 1;
-    }
+    // Crear el comando FTP
+    string command = "ftp -n 192.168.1.100 <<EOF\nuser usuario contrasena\nbinary\nput " + file_name + "\nquit\nEOF";
 
-    // Establecer la dirección del servidor
-    struct sockaddr_in server_address;
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(12345); // Puerto arbitrario
-    server_address.sin_addr.s_addr = inet_addr("192.168.1.100"); // Dirección IP del servidor
-
-    // Conectar con el servidor
-    if (connect(client_socket, (struct sockaddr*)&server_address, sizeof(server_address)) < 0) {
-        cerr << "Error al conectar con el servidor." << endl;
-        return 1;
-    }
-
-    // Enviar el nombre del archivo
-    char buffer[1024];
-    strcpy(buffer, file_name.c_str());
-    send(client_socket, buffer, strlen(buffer), 0);
-
-    // Abrir el archivo para leer los datos
-    ifstream file_to_send(file_name, ios::binary);
-
-    // Leer y enviar los datos del archivo en bloques de 1024 bytes
-    while (file_to_send) {
-        file_to_send.read(buffer, sizeof(buffer));
-        send(client_socket, buffer, file_to_send.gcount(), 0);
-    }
-
-    // Cerrar el archivo y el socket
-    file_to_send.close();
-    close(client_socket);
+    // Ejecutar el comando en la terminal
+    system(command.c_str());
 
     cout << "Archivo enviado con éxito." << endl;
-
-
-
-
-
     }
-
-    case 5: {
+    case5:{
     // Definir las credenciales de acceso al servidor SSH
     string user;
     string host;
@@ -200,39 +167,18 @@ int main() {
     cout << "Contraseña: ";
     cin >> password;
 
-    // Crear la conexión SSH
-    ssh_session session = ssh_new();
-    ssh_options_set(session, SSH_OPTIONS_HOST, host.c_str());
-    ssh_options_set(session, SSH_OPTIONS_USER, user.c_str());
-    ssh_options_set(session, SSH_OPTIONS_PASSWORD_AUTH, password.c_str());
-    ssh_connect(session);
+    // Encriptar la contraseña para pasarla como argumento del comando SSH
+    string encrypted_password = "openssl enc -aes-256-cbc -a -salt -pbkdf2 -pass pass:" + password + " -in /dev/null";
 
-    // Iniciar sesión en el servidor SSH
-    ssh_userauth_password(session, NULL, password.c_str());
+    // Crear el comando SSH
+    string command = "sshpass -e ssh " + user + "@" + host + " 'sudo su'";
 
-    // Ejecutar un comando en la terminal como superusuario
-    ssh_channel channel;
-    channel = ssh_channel_new(session);
-    ssh_channel_open_session(channel);
-    ssh_channel_request_pty(channel);
-    ssh_channel_change_pty_size(channel, 80, 24);
-    ssh_channel_request_exec(channel, "sudo su");
-    char buffer[256];
-    int nbytes;
-    nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
-    while (nbytes > 0) {
-        cout << buffer;
-        nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
-    }
+    // Ejecutar el comando en la terminal
+    system((encrypted_password + " | " + command).c_str());
 
-    // Cerrar la conexión SSH
-    ssh_channel_close(channel);
-    ssh_channel_free(channel);
-    ssh_disconnect(session);
-    ssh_free(session);
     cout << "Conexión SSH finalizada." << endl;
-    break;
-    }   
+
+    }
     case 6:{
 
     int updateStatus = system("sudo apt-get update"); // Ejecuta el comando "sudo apt-get update"
